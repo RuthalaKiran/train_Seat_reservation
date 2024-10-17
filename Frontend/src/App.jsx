@@ -8,7 +8,9 @@ function App() {
   const [seatMap, setSeatMap] = useState(Array(80).fill(null));
   const [avilableseats, setavailableseats] = useState(0);
   const [Err, seterror] = useState("");
-  console.log("Err", Err);
+
+const url = "https://train-seat-reservation-4tlp.onrender.com"
+
   const bookSeats = async () => {
     if (seatCount < 1) {
       const errmsg = "mnimum number of seats required is 1";
@@ -20,7 +22,7 @@ function App() {
     }
 
     try {
-      const response = await axios.post("http://localhost:3000/reserve", {
+      const response = await axios.post(`${url}/reserve`, {
         seatsRequested: seatCount,
       });
       console.log(response.data);
@@ -39,7 +41,7 @@ function App() {
 
   const fetchavailableseats = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/seatsremaining");
+      const response = await axios.get(`${url}/seatsremaining`);
       setavailableseats(response.data.availableSeats);
       console.log(response);
     } catch (error) {
